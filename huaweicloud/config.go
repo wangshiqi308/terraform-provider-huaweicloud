@@ -436,7 +436,6 @@ func (c *Config) NewServiceClient(srv, region string) (*golangsdk.ServiceClient,
 	if serviceCatalog.Admin {
 		client = c.DomainClient
 	}
-
 	if endpoint, ok := c.endpoints[srv]; ok {
 		return c.newServiceClientByEndpoint(client, srv, endpoint)
 	}
@@ -635,6 +634,10 @@ func (c *Config) NetworkingV1Client(region string) (*golangsdk.ServiceClient, er
 // the endpoint likes: https://vpc.{region}.myhuaweicloud.com/v2.0/
 func (c *Config) NetworkingV2Client(region string) (*golangsdk.ServiceClient, error) {
 	return c.NewServiceClient("networkv2", region)
+}
+
+func (c *Config) ServiceStageV2Client(region string) (*golangsdk.ServiceClient, error) {
+	return c.NewServiceClient("servicestagev2", region)
 }
 
 func (c *Config) SecurityGroupV1Client(region string) (*golangsdk.ServiceClient, error) {

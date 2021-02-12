@@ -122,6 +122,10 @@ var allServiceCatalog = map[string]ServiceCatalog{
 		Name:    "vbs",
 		Version: "v2",
 	},
+	"servicestagev2": ServiceCatalog{
+		Name:    "servicestage",
+		Version: "v2",
+	},
 
 	// ******* catalog for network ******
 	"vpc": ServiceCatalog{
