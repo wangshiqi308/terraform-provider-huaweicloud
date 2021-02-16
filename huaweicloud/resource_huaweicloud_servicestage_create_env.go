@@ -51,7 +51,6 @@ func ResourceServiceStageCreateEnvV2() *schema.Resource {
 			"vpc_id": {
 				Type:     schema.TypeString,
 				Required: true,
-				ForceNew: true,
 			},
 			"base_resources": {
 				Type:     schema.TypeSet,
@@ -99,9 +98,10 @@ func resourceServiceStageV2EnvCreate(d *schema.ResourceData, meta interface{}) e
 	}
 
 	createEnvOpts := CreateEnvOpts{
-		Name:        d.Get("name").(string),
-		Description: d.Get("description").(string),
-		BaseResources: resourceEnvResource("base_resources", d),
+		Name:              d.Get("name").(string),
+		Description:       d.Get("description").(string),
+		Vpc:               d.Get("vpc_id").(string),
+		BaseResources:     resourceEnvResource("base_resources", d),
 		OptionalResources: resourceEnvResource("optional_resources", d),
 	}
 
@@ -214,16 +214,16 @@ type UpdateEnvOptsBuilder interface {
 }
 
 type CreateEnvOpts struct {
-	Name                string `json:"name,omitempty"`
-	Description         string `json:"description,omitempty"`
-	EnterpriseProjectID string `json:"enterprise_project_id,omitempty"`
-	Vpc string `json:"vpc_id,omitempty"`
-	BaseResources []Resource `json:"base_resources,omitempty"`
-	OptionalResources []Resource `json:"optional_resources,omitempty"`
+	Name                string     `json:"name,omitempty"`
+	Description         string     `json:"description,omitempty"`
+	EnterpriseProjectID string     `json:"enterprise_project_id,omitempty"`
+	Vpc                 string     `json:"vpc_id,omitempty"`
+	BaseResources       []Resource `json:"base_resources,omitempty"`
+	OptionalResources   []Resource `json:"optional_resources,omitempty"`
 }
 
 type Resource struct {
-	ID string `json:"id,omitempty"`
+	ID   string `json:"id,omitempty"`
 	Type string `json:"type,omitempty"`
 }
 
@@ -362,7 +362,7 @@ func resourceEnvResource(key string, d *schema.ResourceData) []Resource {
 	for i, raw := range res {
 		rawMap := raw.(map[string]interface{})
 		resources[i] = Resource{
-			ID:  rawMap["id"].(string),
+			ID:   rawMap["id"].(string),
 			Type: rawMap["type"].(string),
 		}
 	}

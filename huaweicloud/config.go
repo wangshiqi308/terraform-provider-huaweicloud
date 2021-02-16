@@ -640,6 +640,10 @@ func (c *Config) ServiceStageV2Client(region string) (*golangsdk.ServiceClient, 
 	return c.NewServiceClient("servicestagev2", region)
 }
 
+func (c *Config) CCEK8SClient(region string) (*golangsdk.ServiceClient, error) {
+	return c.NewServiceClient("cce_k8s", region)
+}
+
 func (c *Config) SecurityGroupV1Client(region string) (*golangsdk.ServiceClient, error) {
 	return c.NewServiceClient("security_group", region)
 }

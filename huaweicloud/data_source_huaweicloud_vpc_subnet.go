@@ -124,6 +124,6 @@ func dataSourceVpcSubnetV1Read(d *schema.ResourceData, meta interface{}) error {
 	d.Set("vpc_id", Subnets.VPC_ID)
 	d.Set("subnet_id", Subnets.SubnetId)
 	d.Set("region", GetRegion(d, config))
-
+	d.Set("id", Subnets.ID)
 	return nil
 }

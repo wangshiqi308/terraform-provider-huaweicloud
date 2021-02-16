@@ -462,9 +462,14 @@ func Provider() terraform.ResourceProvider {
 			"huaweicloud_vpnaas_ipsec_policy":             resourceVpnIPSecPolicyV2(),
 			"huaweicloud_vpnaas_service":                  resourceVpnServiceV2(),
 			"huaweicloud_vpnaas_site_connection":          resourceVpnSiteConnectionV2(),
+			//
+			//k8s
+			"huaweicloud_cce_create_service": resourceKubernetesService(),
 			// ServiceStage
-			"huaweicloud_servicestage_create_app": ResourceServiceStageCreateAPPV2(),
-			"huaweicloud_servicestage_create_env": ResourceServiceStageCreateEnvV2(),
+			"huaweicloud_servicestage_create_app":       ResourceServiceStageCreateAPPV2(),
+			"huaweicloud_servicestage_create_env":       ResourceServiceStageCreateEnvV2(),
+			"huaweicloud_servicestage_create_component": ResourceServiceStageCreateComponentV2(),
+			"huaweicloud_servicestage_deploy_component": ResourceServiceStageDeployComponentV2(),
 			// Legacy
 			"huaweicloud_compute_instance_v2":                ResourceComputeInstanceV2(),
 			"huaweicloud_compute_interface_attach_v2":        ResourceComputeInterfaceAttachV2(),

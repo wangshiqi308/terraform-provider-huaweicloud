@@ -117,6 +117,9 @@ func dataSourceVirtualPrivateCloudV1Read(d *schema.ResourceData, meta interface{
 	if err := d.Set("routes", s); err != nil {
 		return err
 	}
+	if err := d.Set("id", Vpc.ID); err != nil {
+		return err
+	}
 
 	return nil
 }
