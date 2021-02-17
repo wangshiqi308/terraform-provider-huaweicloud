@@ -7,7 +7,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/helper/validation"
 	"github.com/huaweicloud/golangsdk"
 	"k8s.io/apimachinery/pkg/types"
-	"k8s.io/apimachinery/pkg/util/intstr"
 	"log"
 	"strings"
 	"time"
@@ -72,7 +71,7 @@ func expandServicePort(l []interface{}) []ServicePort {
 		cfg := n.(map[string]interface{})
 		obj[i] = ServicePort{
 			Port:       int32(cfg["port"].(int)),
-			TargetPort: intstr.Parse(cfg["target_port"].(string)),
+			TargetPort: int32(cfg["target_port"].(int)),
 		}
 		if v, ok := cfg["name"].(string); ok {
 			obj[i].Name = v
@@ -589,7 +588,7 @@ func resourceKubernetesServiceSchemaV1() map[string]*schema.Schema {
 									}, false),
 								},
 								"target_port": {
-									Type:        schema.TypeString,
+									Type:        schema.TypeInt,
 									Description: "Number or name of the port to access on the pods targeted by the service. Number must be in the range 1 to 65535. This field is ignored for services with `cluster_ip = \"None\"`. More info: http://kubernetes.io/docs/user-guide/services#defining-a-service",
 									Optional:    true,
 									Computed:    true,
@@ -703,12 +702,12 @@ type ObjectMeta struct {
 }
 
 type ServicePort struct {
-	Name        string             `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
-	Protocol    Protocol           `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
-	AppProtocol *string            `json:"appProtocol,omitempty" protobuf:"bytes,6,opt,name=appProtocol"`
-	Port        int32              `json:"port" protobuf:"varint,3,opt,name=port"`
-	TargetPort  intstr.IntOrString `json:"targetPort,omitempty" protobuf:"bytes,4,opt,name=targetPort"`
-	NodePort    int32              `json:"nodePort,omitempty" protobuf:"varint,5,opt,name=nodePort"`
+	Name        string   `json:"name,omitempty" protobuf:"bytes,1,opt,name=name"`
+	Protocol    Protocol `json:"protocol,omitempty" protobuf:"bytes,2,opt,name=protocol,casttype=Protocol"`
+	AppProtocol *string  `json:"appProtocol,omitempty" protobuf:"bytes,6,opt,name=appProtocol"`
+	Port        int32    `json:"port" protobuf:"varint,3,opt,name=port"`
+	TargetPort  int32    `json:"targetPort,omitempty" protobuf:"bytes,4,opt,name=targetPort"`
+	NodePort    int32    `json:"nodePort,omitempty" protobuf:"varint,5,opt,name=nodePort"`
 }
 type IPFamily string
 type IPFamilyPolicyType string

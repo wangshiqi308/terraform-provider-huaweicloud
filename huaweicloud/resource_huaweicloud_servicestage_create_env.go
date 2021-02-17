@@ -53,7 +53,7 @@ func ResourceServiceStageCreateEnvV2() *schema.Resource {
 				Required: true,
 			},
 			"base_resources": {
-				Type:     schema.TypeSet,
+				Type:     schema.TypeList,
 				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -70,7 +70,7 @@ func ResourceServiceStageCreateEnvV2() *schema.Resource {
 				},
 			},
 			"optional_resources": {
-				Type:     schema.TypeSet,
+				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -356,7 +356,7 @@ func deleteSSEnv(c *golangsdk.ServiceClient, id string) (r DeleteEnvResult) {
 }
 
 func resourceEnvResource(key string, d *schema.ResourceData) []Resource {
-	res := d.Get(key).(*schema.Set).List()
+	res := d.Get(key).([]interface{})
 
 	resources := make([]Resource, len(res))
 	for i, raw := range res {
