@@ -249,6 +249,7 @@ func Provider() terraform.ResourceProvider {
 			"huaweicloud_availability_zones":          DataSourceAvailabilityZones(),
 			"huaweicloud_cce_cluster":                 DataSourceCCEClusterV3(),
 			"huaweicloud_cce_node":                    DataSourceCCENodeV3(),
+			"huaweicloud_get_cce_cluster":             DataSourceCCEGetCluster(),
 			"huaweicloud_cdm_flavors":                 dataSourceCdmFlavorV1(),
 			"huaweicloud_compute_flavors":             DataSourceEcsFlavors(),
 			"huaweicloud_compute_instance":            DataSourceComputeInstance(),
